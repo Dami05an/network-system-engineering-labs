@@ -1,4 +1,4 @@
-# 01 – CCNA
+# 01 – CCNA Labs & Network Projects
 
 ## About This Section
 
