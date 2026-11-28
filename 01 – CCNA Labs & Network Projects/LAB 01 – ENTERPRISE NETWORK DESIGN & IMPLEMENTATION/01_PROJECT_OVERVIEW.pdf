@@ -1,0 +1,310 @@
+# LAB 01 – ENTERPRISE NETWORK DESIGN & IMPLEMENTATION
+
+**Project Category:** Enterprise Networking  
+**Difficulty:** Intermediate  
+**Platform:** Cisco Packet Tracer  
+**Certification Reference:** Cisco CCNA 200-301
+
+---
+
+## 1. Project Context
+
+A small company is expanding its IT infrastructure and requires a structured, secure, and reliable network.
+
+The company has several departments, each requiring access to network resources. It also needs centralized network services and controlled communication between departments.
+
+You have been assigned the role of Network Administrator.
+
+Your responsibility is to design, implement, configure, secure, test, and document the entire network infrastructure using Cisco Packet Tracer.
+
+The infrastructure must follow basic enterprise networking best practices.
+
+## 2. Project Objectives
+
+The main objectives are:
+
+- Design a multi-department network infrastructure.
+- Configure VLANs to separate departments.
+- Implement inter-VLAN routing using Router-on-a-Stick.
+- Configure 802.1Q trunk links.
+- Implement centralized DHCP and DNS services.
+- Configure network device management.
+- Apply basic network security policies.
+- Implement and verify Spanning Tree Protocol.
+- Test connectivity between network devices.
+- Troubleshoot network configuration issues.
+
+## 3. Required Network Equipment
+
+The following equipment must be used:
+
+| Device | Quantity | Role |
+|---|---:|---|
+| Cisco 2911 Router | 1 | Routing |
+| Cisco Catalyst 2960 | 2 | Layer 2 Switching |
+| Server | 1 | DHCP, DNS and HTTP |
+| PCs | 6 | End-user workstations |
+| Network Printer | 1 | Shared printing |
+
+You may add additional equipment if it improves your network design.
+
+## 4. Network Segmentation
+
+Create the following VLANs:
+
+| VLAN ID | VLAN Name | Network | Purpose |
+|---|---|---|---|
+| 10 | ADMIN | 192.168.10.0/24 | Administration Department |
+| 20 | IT | 192.168.20.0/24 | IT Department |
+| 30 | GUEST | 192.168.30.0/24 | Guest Network |
+| 40 | SERVERS | 192.168.40.0/24 | Server Infrastructure |
+| 99 | MANAGEMENT | 192.168.99.0/24 | Network Device Management |
+| 999 | NATIVE | N/A | Native VLAN |
+
+Requirements:
+
+- Create all VLANs on both switches.
+- Assign access ports to the appropriate VLANs.
+- Configure the native VLAN on trunk connections.
+- Ensure VLAN information is consistent across the infrastructure.
+- Prevent unauthorized access between network segments.
+
+## 5. IP Addressing Plan
+
+Use the following addressing scheme:
+
+| Device | VLAN | IP Address |
+|---|---:|---|
+| Router | 10 | 192.168.10.1 |
+| Router | 20 | 192.168.20.1 |
+| Router | 30 | 192.168.30.1 |
+| Router | 40 | 192.168.40.1 |
+| Router | 99 | 192.168.99.1 |
+| Server | 40 | 192.168.40.10 |
+| Switch 1 | 99 | 192.168.99.2 |
+| Switch 2 | 99 | 192.168.99.3 |
+| Printer | 10 | 192.168.10.50 |
+
+All router addresses above represent the default gateways for their respective VLANs.
+
+The server, switches and printer must use static IP addressing.
+
+End-user workstations must receive their IP configuration dynamically through DHCP.
+
+## 6. Routing Configuration
+
+Implement Router-on-a-Stick using the Cisco 2911 router.
+
+Requirements:
+
+- Configure the physical router interface connected to Switch 1.
+- Create the necessary router subinterfaces.
+- Configure IEEE 802.1Q encapsulation.
+- Assign the correct gateway IP addresses.
+- Ensure communication between authorized VLANs.
+
+All routing between VLANs must pass through the router.
+
+## 7. Switching Configuration
+
+Configure both Cisco 2960 switches.
+
+Requirements:
+
+- Configure hostnames.
+- Create and assign VLANs.
+- Configure access interfaces.
+- Configure trunk interfaces between switches.
+- Configure the trunk connection between the router and Switch 1.
+- Configure the native VLAN.
+- Restrict trunk links to the required VLANs.
+- Implement Rapid PVST+.
+- Configure the appropriate STP root bridge.
+
+## 8. Network Services
+
+Configure the server to provide the following services:
+
+### DHCP
+
+Create separate DHCP pools for:
+
+- VLAN 10 – ADMIN
+- VLAN 20 – IT
+- VLAN 30 – GUEST
+
+Requirements:
+
+- Configure the correct network addresses.
+- Configure default gateways.
+- Configure DNS server addresses.
+- Exclude reserved IP addresses from DHCP allocation.
+- Configure DHCP relay on the router where necessary.
+
+### DNS
+
+Configure a DNS service on the server.
+
+Create at least one DNS record:
+
+`intranet.company.local`
+
+The record must resolve to the server's IP address.
+
+### HTTP
+
+Enable the HTTP service on the server.
+
+Create a basic intranet webpage displaying the company name and a welcome message.
+
+Verify that authorized users can access the webpage through their browsers.
+
+## 9. Network Security
+
+Implement the following security measures:
+
+### Device Access Security
+
+- Configure encrypted privileged EXEC passwords.
+- Configure console authentication.
+- Configure SSH remote management.
+- Create a local administrative user.
+- Disable unused switch interfaces.
+- Configure a login warning banner.
+
+### VLAN Security
+
+- Configure port security on selected access interfaces.
+- Restrict access ports to a maximum of two MAC addresses.
+- Configure an appropriate violation mode.
+- Ensure unused ports are assigned to an unused VLAN and administratively disabled.
+
+### Access Control Lists
+
+Configure an ACL to restrict the GUEST VLAN.
+
+Requirements:
+
+- Guest devices must not access the ADMIN VLAN.
+- Guest devices must not access the IT VLAN.
+- Guest devices must not access the MANAGEMENT VLAN.
+- Guest devices must be allowed to use the company's DNS and HTTP services on the server.
+- Guest devices must not access other internal resources.
+
+Document and test the ACL behavior.
+
+## 10. Management and Monitoring
+
+Configure network management access.
+
+Requirements:
+
+- Assign management IP addresses to both switches.
+- Configure their default gateways.
+- Enable SSH access.
+- Verify remote connectivity to both switches.
+- Use Cisco IOS show commands to monitor the infrastructure.
+
+## 11. Testing and Validation
+
+Perform the following tests:
+
+**Connectivity Tests**
+
+- Ping between two devices in the same VLAN.
+- Ping between devices in different authorized VLANs.
+- Verify access to the default gateways.
+- Verify access to the DNS server.
+- Verify HTTP access to the intranet.
+
+**DHCP Tests**
+
+- Verify that each workstation receives the correct IP address.
+- Verify subnet masks, gateways and DNS settings.
+- Verify that DHCP requests are correctly relayed.
+
+**Switching Tests**
+
+Use the following commands where appropriate:
+
+- `show vlan brief`
+- `show interfaces trunk`
+- `show interfaces status`
+- `show spanning-tree`
+- `show mac address-table`
+
+**Routing Tests**
+
+- `show ip interface brief`
+- `show ip route`
+- `show running-config`
+- `show access-lists`
+
+**Security Tests**
+
+- Verify SSH access.
+- Test port security.
+- Verify that unused ports are disabled.
+- Test guest network restrictions.
+
+Include screenshots and command outputs as evidence.
+
+## 12. Troubleshooting Challenges
+
+Once the infrastructure is fully operational, introduce the following faults and troubleshoot them.
+
+**Challenge 1 – VLAN Misconfiguration**
+
+Change the VLAN assignment of a workstation's switch port.
+
+Identify why communication is affected and restore the correct configuration.
+
+**Challenge 2 – Trunk Configuration**
+
+Introduce a native VLAN mismatch or remove a required VLAN from an allowed VLAN list.
+
+Identify the problem and restore trunk connectivity.
+
+**Challenge 3 – DHCP Failure**
+
+Introduce an incorrect DHCP relay configuration.
+
+Identify why workstations are not receiving IP addresses and resolve the issue.
+
+**Challenge 4 – Routing Failure**
+
+Misconfigure one router subinterface.
+
+Identify the affected network and restore inter-VLAN connectivity.
+
+**Challenge 5 – ACL Restrictions**
+
+Modify the guest ACL so that an authorized service becomes inaccessible.
+
+Identify the incorrect rule and correct the ACL.
+
+Document the symptoms, diagnosis, commands used, and final solution for each challenge.
+
+## 13. Expected Deliverables
+
+The completed project must contain:
+
+1. `01_PROJECT_OVERVIEW.pdf`
+2. `02_NETWORK_TOPOLOGY.png`
+3. `03_CISCO_CONFIGURATION.txt`
+4. `04_TECHNICAL_DOCUMENTATION.pdf`
+5. `05_TESTS_AND_VALIDATION.pdf`
+6. `06_PACKET_TRACER_PROJECT.pkt`
+7. `07_ISSUES_AND_SOLUTIONS.pdf`
+
+## 14. Project Completion Criteria
+
+The project is considered complete when:
+
+- All network devices are correctly configured.
+- All VLANs are operational.
+- Trunk connections are working correctly.
+- Inter-VLAN routing is functional.
+- DHCP and DNS services are operational.
+- The intranet webpage is accessible to authorized users.
+- Guest network restrictions are working correctly
